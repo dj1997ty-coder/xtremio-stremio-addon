@@ -51,9 +51,9 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
     if (cfg) {
         try {
             const cats = await getCategories(cfg);
-            const movieGenres = [...new Set(cats.movies.map(c => c.category_name).filter(Boolean))];
-            const seriesGenres = [...new Set(cats.series.map(c => c.category_name).filter(Boolean))];
-            const liveGenres = [...new Set(cats.live.map(c => c.category_name).filter(Boolean))];
+const movieGenres = [...new Set(cats.movies.map(c => c.category_name).filter(Boolean))].slice(0, 30);
+const seriesGenres = [...new Set(cats.series.map(c => c.category_name).filter(Boolean))].slice(0, 30);
+const liveGenres = [...new Set(cats.live.map(c => c.category_name).filter(Boolean))].slice(0, 30);
 
             catalogs.push(
                 {
@@ -61,7 +61,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_live',
                     name: 'Live TV',
                     extra: [
-                        { name: 'genre', options: liveGenres, isRequired: true },
+                        { name: 'genre', options: liveGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -71,7 +71,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_movies_popular',
                     name: 'Popular',
                     extra: [
-                        { name: 'genre', options: movieGenres, isRequired: true },
+                        { name: 'genre', options: movieGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -81,7 +81,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_movies_new',
                     name: 'New',
                     extra: [
-                        { name: 'genre', options: movieGenres, isRequired: true },
+                        { name: 'genre', options: movieGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -91,7 +91,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_movies_featured',
                     name: 'Featured',
                     extra: [
-                        { name: 'genre', options: movieGenres, isRequired: true },
+                        { name: 'genre', options: movieGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -101,7 +101,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_series_popular',
                     name: 'Popular',
                     extra: [
-                        { name: 'genre', options: seriesGenres, isRequired: true },
+                        { name: 'genre', options: seriesGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -111,7 +111,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_series_new',
                     name: 'New',
                     extra: [
-                        { name: 'genre', options: seriesGenres, isRequired: true },
+                        { name: 'genre', options: seriesGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -121,7 +121,7 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     id: 'xtremio_series_featured',
                     name: 'Featured',
                     extra: [
-                        { name: 'genre', options: seriesGenres, isRequired: true },
+                        { name: 'genre', options: seriesGenres, isRequired: false },
                         { name: 'skip' },
                         { name: 'search' }
                     ]
@@ -130,14 +130,14 @@ async function getManifest(baseUrl = `http://localhost:${PORT}`, cfg = null) {
                     type: 'XT-Movies',
                     id: 'xtremio_search_movies',
                     name: 'Search Movies',
-                    extra: [{ name: 'search', isRequired: true }],
+                    extra: [{ name: 'search', isRequired: false }],
                     searchProperties: ['name']
                 },
                 {
                     type: 'XT-Series',
                     id: 'xtremio_search_series',
                     name: 'Search Series',
-                    extra: [{ name: 'search', isRequired: true }],
+                    extra: [{ name: 'search', isRequired: false }],
                     searchProperties: ['name']
                 }
             );
